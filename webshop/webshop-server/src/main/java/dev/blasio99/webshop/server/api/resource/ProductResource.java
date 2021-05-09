@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import dev.blasio99.webshop.common.dto.ProductDTO;
@@ -58,6 +59,11 @@ public class ProductResource {
 		return productRepository.findAll();
     }
 
+	@GetMapping("api/product/category/{category}")
+	public List<Product> getProductsByCategory(@PathVariable String category) {
+		return productService.getProductByCategory(category);
+    }
+
 	@PutMapping("admin/api/product/edit")
     public Product editProduct(@RequestBody ProductDTO dto) {
         return productRepository.save(productAssembler.createModel(dto));
@@ -66,6 +72,11 @@ public class ProductResource {
     @DeleteMapping("admin/api/product/delete/{id}")
     public void deleteProduct(@PathVariable Long id) {
         productService.deleteProduct(id);
+    }
+
+	@PostMapping("api/product/sell")
+    public void sellProduct(@RequestParam String name, @RequestParam String quantity, @RequestParam String size) {
+        productService.sellProduct(name, Integer.valueOf(quantity), size);
     }
 	
 

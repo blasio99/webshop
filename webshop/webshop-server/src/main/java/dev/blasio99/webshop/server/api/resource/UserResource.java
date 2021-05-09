@@ -66,14 +66,14 @@ public class UserResource {
 		if(Objects.isNull(secureToken) || secureToken.isExpired() || !secureToken.getEmail().equals(dto.getEmail()))
             throw new InvalidTokenException("Token is not valid");
         
-		User user = userService.registerStudent(userRegisterAssembler.createModel(dto));
+		User user = userService.registerClient(userRegisterAssembler.createModel(dto));
 		
 		secureTokenService.removeToken(secureToken);
 		return userAssembler.createDTO(user);
 	}
 
-    @GetMapping("/teacher/api/user/{username}")
-    public ResponseEntity<UserDTO> getUserByUsername(@PathVariable("username") String username) {
+    @GetMapping("/admin/api/user/{username}")
+    public ResponseEntity<UserDTO> getUserByUsername(@PathVariable String username) {
         try {
             User user = userService.getUserByUsername(username);
             return new ResponseEntity<>(userAssembler.createDTO(user), HttpStatus.OK);
@@ -82,9 +82,9 @@ public class UserResource {
         }
     }
 
-    @GetMapping("/teacher/api/students")
-    public List<UserDTO> getStudents() {
-        return userAssembler.createDTOList(userService.getStudents());
+    @GetMapping("/admin/api/clients")
+    public List<UserDTO> getClients() {
+        return userAssembler.createDTOList(userService.getClients());
     }
 
 	/*@GetMapping("/teacher/api/students/group/{group}")
@@ -92,16 +92,16 @@ public class UserResource {
         return userAssembler.createDTOList(userService.getUsersByGroup(group));
     }*/
 
-    @PostMapping("/teacher/api/register/teacher")
+    @PostMapping("/admin/api/register/admin")
 	@ResponseStatus(HttpStatus.CREATED)
-    public UserDTO registerTeacher(@RequestBody UserRegisterDTO dto) {
-        User user = userService.registerTeacher(userRegisterAssembler.createModel(dto));
+    public UserDTO registerAdmin(@RequestBody UserRegisterDTO dto) {
+        User user = userService.registerAdmin(userRegisterAssembler.createModel(dto));
         return userAssembler.createDTO(user);
     }
 
-	@PostMapping("/teacher/api/register/student")
+	@PostMapping("/admin/api/register/client")
 	@ResponseStatus(HttpStatus.CREATED)
-    public String registerStudent(@RequestParam String email) throws UserExistsException {
+    public String registerClient(@RequestParam String email) throws UserExistsException {
 		if(userService.getUserByEmail(email) != null) 
 			throw new UserExistsException("User already exists");
 
@@ -111,7 +111,7 @@ public class UserResource {
 		return secureToken.getToken();
     }
 
-    @DeleteMapping("/teacher/api/delete/user/{username}")
+    @DeleteMapping("/admin/api/delete/user/{username}")
     public void deleteUser(@PathVariable String username) {
         userService.deleteUser(username);
     }

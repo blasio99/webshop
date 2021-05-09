@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 
 import dev.blasio99.webshop.server.enums.Role;
 import dev.blasio99.webshop.server.exception.ServiceException;
+import dev.blasio99.webshop.server.exception.UserNotFoundException;
 import dev.blasio99.webshop.server.model.User;
 import dev.blasio99.webshop.server.repo.UserRepository;
 
@@ -60,13 +61,14 @@ public class UserService {
         return userRepository.findByEmail(email)!=null ? true : false;
     }
 
-    public List<User> getStudents() {
+    public List<User> getClients() {
         return userRepository.findByRole(Role.CLIENT);
     }
 
     public User getUserByUsername(String username) throws ServiceException {
         User user =  userRepository.findByUsername(username);
-        if (user == null) throw new ServiceException("User not found", HttpStatus.NOT_FOUND);
+		System.out.println(user);
+        if (user == null) throw new UserNotFoundException();
         return user;
     }
 
@@ -75,16 +77,11 @@ public class UserService {
         return user;
     }
 
-	/*public List<User> getUsersByGroup(String groupName) throws ServiceException {
-        List<User> users =  userRepository.findByGroupName(GroupName.valueOf(groupName));
-        return users;
-    }*/
-
-	public User registerStudent(User user) throws ServiceException {
+	public User registerClient(User user) throws ServiceException {
         return registerUser(user, Role.CLIENT);
     }
 
-    public User registerTeacher(User user) throws ServiceException {
+    public User registerAdmin(User user) throws ServiceException {
         return registerUser(user, Role.ADMIN);
     }
 
@@ -97,7 +94,8 @@ public class UserService {
 
     public void deleteUser(String username) {
         User user = userRepository.findByUsername(username);
-        if (user == null) return;
+		System.out.println(user);
+        if (user == null) throw new UserNotFoundException();
         userRepository.delete(user);
     }
 
