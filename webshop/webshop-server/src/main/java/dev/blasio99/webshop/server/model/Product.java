@@ -5,6 +5,9 @@ import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 
 import dev.blasio99.webshop.server.enums.Category;
 import dev.blasio99.webshop.server.enums.Size;
@@ -13,8 +16,11 @@ import dev.blasio99.webshop.server.enums.Size;
 @Table(uniqueConstraints={
     @UniqueConstraint(columnNames = {"name", "size"})
 }) 
-public class Product extends BaseModel {
+public class Product{
     
+	@Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long productId;
     private String name;
 	@Enumerated(EnumType.STRING)
 	private Category category;
@@ -23,6 +29,14 @@ public class Product extends BaseModel {
 	private Size size;
 	private Integer quantity;
 	private String description;
+
+	public Long getProductId() {
+		return this.productId;
+	}
+
+	public void setProductId(Long productId) {
+		this.productId = productId;
+	}
 
 	public String getName() {
 		return this.name;

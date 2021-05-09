@@ -31,5 +31,9 @@ public class GlobalExceptionHandler {
     @ResponseStatus(value = HttpStatus.UNAUTHORIZED, reason = "Invalid token!")
     @ExceptionHandler(InvalidTokenException.class)
     public void handleInvalidToken() {}
+
+	@ResponseStatus(value = HttpStatus.CONFLICT, reason = "Error on Order level!")
+    @ExceptionHandler(OrderException.class)
+    public void handleOrderError() {}
     
 }
