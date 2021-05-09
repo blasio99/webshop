@@ -12,33 +12,37 @@ public class SecureToken extends BaseModel{
 
     @Column(unique = true)
     private String token;
-    @CreationTimestamp
-    private Timestamp timeStamp;
-    private LocalDateTime expireAt;
-    @Column(unique = true)
-    private String email;
-    @Transient
-    private boolean isExpired;
+	@CreationTimestamp
+	private Timestamp timeStamp;
+	private LocalDateTime expireAt;
+	@Column(unique = true)
+	private String email;
+	@Transient
+	private boolean isExpired;
 
-    public String getToken() {
-        return token;
-    }
+	public String getToken() {
+		return this.token;
+	}
 
-    public void setToken(String token) {
-        this.token = token;
-    }
+	public void setToken(String token) {
+		this.token = token;
+	}
 
-    public LocalDateTime getExpireAt() {
-        return expireAt;
-    }
+	public Timestamp getTimeStamp() {
+		return this.timeStamp;
+	}
 
-    public void setExpireAt(LocalDateTime expireAt) {
-        this.expireAt = expireAt;
-    }
+	public void setTimeStamp(Timestamp timeStamp) {
+		this.timeStamp = timeStamp;
+	}
 
-    public Timestamp getTimeStamp() {
-        return timeStamp;
-    }
+	public LocalDateTime getExpireAt() {
+		return this.expireAt;
+	}
+
+	public void setExpireAt(LocalDateTime expireAt) {
+		this.expireAt = expireAt;
+	}
 
 	public String getEmail() {
 		return this.email;
@@ -47,8 +51,8 @@ public class SecureToken extends BaseModel{
 	public void setEmail(String email) {
 		this.email = email;
 	}
-    public boolean isExpired() {
 
+    public boolean isExpired() {
         return getExpireAt().isBefore(LocalDateTime.now()); // this is generic implementation, you can always make it timezone specific
     }
 	

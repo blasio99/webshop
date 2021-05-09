@@ -1,4 +1,4 @@
-package dev.blasio99.moodle.server.api.resource;
+package dev.blasio99.webshop.server.api.resource;
 
 import java.util.List;
 

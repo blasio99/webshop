@@ -31,7 +31,7 @@ public class SecureTokenDTO extends BaseDTO{
 	public void setExpireAt(String expireAt) {
 		this.expireAt = expireAt;
 	}
-	
+
 	public String getEmail() {
 		return this.email;
 	}
