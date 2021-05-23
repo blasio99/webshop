@@ -22,6 +22,8 @@ public class User extends BaseModel {
 	private String address;
 	@Column(unique = true)
 	private String phone;
+	@Column(columnDefinition = "boolean default false")
+	private Boolean subscriber = false;
 
 	public String getEmail() {
 		return this.email;
@@ -69,6 +71,14 @@ public class User extends BaseModel {
 
 	public void setPhone(String phone) {
 		this.phone = phone;
+	}
+
+	public Boolean getSubscriber() {
+		return this.subscriber;
+	}
+
+	public void setSubscriber(Boolean subscriber) {
+		this.subscriber = subscriber;
 	}
 
 }

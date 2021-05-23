@@ -19,6 +19,7 @@ public class UserRegisterAssembler implements BaseAssembler<UserRegisterDTO, Use
         user.setRole(Role.valueOf(dto.getRole()));
 		user.setAddress(dto.getAddress());
 		user.setPhone(dto.getPhone());
+		user.setSubscriber(dto.getSubscriber());
         return user;
     }
 
@@ -32,6 +33,7 @@ public class UserRegisterAssembler implements BaseAssembler<UserRegisterDTO, Use
         dto.setRole(model.getRole().name());
 		dto.setAddress(model.getAddress());
 		dto.setPhone(model.getPhone());
+		dto.setSubscriber(model.getSubscriber());
         return dto;
     }
 }

@@ -35,5 +35,9 @@ public class GlobalExceptionHandler {
 	@ResponseStatus(value = HttpStatus.CONFLICT, reason = "Error on Order level!")
     @ExceptionHandler(OrderException.class)
     public void handleOrderError() {}
+
+	@ResponseStatus(value = HttpStatus.CONFLICT, reason = "Incorrect input value!")
+    @ExceptionHandler(IncorrectInputValueException.class)
+    public void handleIncorrectInputValue() {}
     
 }

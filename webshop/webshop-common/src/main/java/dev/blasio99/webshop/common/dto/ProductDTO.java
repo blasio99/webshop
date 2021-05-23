@@ -1,6 +1,6 @@
 package dev.blasio99.webshop.common.dto;
 
-public class ProductDTO extends BaseDTO{
+public class ProductDTO{
     
 	private Long productId;
     private String name;

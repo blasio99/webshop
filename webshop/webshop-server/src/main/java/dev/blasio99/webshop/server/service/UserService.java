@@ -94,9 +94,22 @@ public class UserService {
 
     public void deleteUser(String username) {
         User user = userRepository.findByUsername(username);
-		System.out.println(user);
         if (user == null) throw new UserNotFoundException();
         userRepository.delete(user);
     }
+
+	public void subscribe(String username) {
+		User user = userRepository.findByUsername(username);
+		if (user == null) throw new UserNotFoundException();
+		user.setSubscriber(true);
+		userRepository.save(user);
+	}
+
+	public void unsubscribe(String username) {
+		User user = userRepository.findByUsername(username);
+		if (user == null) throw new UserNotFoundException();
+		user.setSubscriber(false);
+		userRepository.save(user);
+	}
 
 }

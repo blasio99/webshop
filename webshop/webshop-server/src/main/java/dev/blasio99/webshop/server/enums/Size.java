@@ -1,7 +1,7 @@
 package dev.blasio99.webshop.server.enums;
 
 public enum Size {
-	XXS, XS, S, M, L, XL, XXL, XXXL, XXXXL, XXXXXL,
+	XS, S, M, L, XL, XXL, XXXL, XXXXL, XXXXXL,
 	
 	// Size between 30 - 39.5
 	S30  , S31  , S32  , S33  , S34  , S35  , S36  , S37  , S38  , S39  ,

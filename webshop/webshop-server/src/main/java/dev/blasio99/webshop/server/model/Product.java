@@ -86,4 +86,30 @@ public class Product{
 		this.description = description;
 	}
 
+	@Override
+    public String toString() {
+        StringBuilder stringBuilder = new StringBuilder();
+		String items = (getQuantity() == 1) ? " item" : " items";
+		
+		stringBuilder.append("Name: \t\t" + getName() + '\n');
+		stringBuilder.append("Category: \t" + getCategory() + '\n');
+		stringBuilder.append("Price: \t\t" + getPrice() + " RON / item\n");
+		stringBuilder.append("Size: \t\t" + sizeToString(getSize()) + '\n');
+		stringBuilder.append("Quantity: \t" + getQuantity() + items + '\n');
+		stringBuilder.append("Description: \t" + getDescription() + '\n');
+
+		return stringBuilder.toString();
+    }
+
+	private String sizeToString(Size size){
+		if(size.equals(Size.XXL) || size.equals(Size.XXXXL))
+			return size.toString();
+		else if(size.toString().length() == 3)
+			return size.toString().substring(1);
+		else if(size.toString().length() == 5)
+			return size.toString().substring(1, 3) + '.' + size.toString().substring(4);
+		else 
+			return size.toString();
+		
+	}
 }

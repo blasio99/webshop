@@ -5,6 +5,8 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -87,11 +89,6 @@ public class UserResource {
         return userAssembler.createDTOList(userService.getClients());
     }
 
-	/*@GetMapping("/teacher/api/students/group/{group}")
-    public List<UserDTO> getStudentsFromGroup(@PathVariable String group) {
-        return userAssembler.createDTOList(userService.getUsersByGroup(group));
-    }*/
-
     @PostMapping("/admin/api/register/admin")
 	@ResponseStatus(HttpStatus.CREATED)
     public UserDTO registerAdmin(@RequestBody UserRegisterDTO dto) {
@@ -115,5 +112,17 @@ public class UserResource {
     public void deleteUser(@PathVariable String username) {
         userService.deleteUser(username);
     }
+
+	@PostMapping("/api/user/subscribe")
+	public void subscribe(){
+		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+		userService.subscribe(authentication.getName());
+	}
+
+	@PostMapping("/api/user/unsubscribe")
+	public void unsubscribe(){
+		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+		userService.unsubscribe(authentication.getName());
+	}
     
 }

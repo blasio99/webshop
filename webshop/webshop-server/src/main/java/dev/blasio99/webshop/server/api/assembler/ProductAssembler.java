@@ -13,13 +13,13 @@ import dev.blasio99.webshop.server.model.Product;
 @Component
 public class ProductAssembler {
 
-    public Product createModel(ProductDTO dto) {
+    public Product createModel(ProductDTO dto)  {
         Product product = new Product();
         product.setProductId(dto.getProductId());
 		product.setName(dto.getName());
 		product.setCategory(Category.valueOf(dto.getCategory()));
         product.setPrice(dto.getPrice());
-        product.setSize(Size.valueOf(dto.getSize()));
+		product.setSize(Size.valueOf(dto.getSize()));
 		product.setQuantity(dto.getQuantity());
 		product.setDescription(dto.getDescription());
         return product;

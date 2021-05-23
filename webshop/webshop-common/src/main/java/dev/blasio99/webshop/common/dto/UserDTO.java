@@ -8,6 +8,7 @@ public class UserDTO extends BaseDTO{
 	private String role;
 	private String address;
 	private String phone;
+	private Boolean subscriber;
 
 	public String getEmail() {
 		return this.email;
@@ -55,6 +56,14 @@ public class UserDTO extends BaseDTO{
 
 	public void setPhone(String phone) {
 		this.phone = phone;
+	}
+	
+	public Boolean getSubscriber() {
+		return this.subscriber;
+	}
+
+	public void setSubscriber(Boolean subscriber) {
+		this.subscriber = subscriber;
 	}
 
 }

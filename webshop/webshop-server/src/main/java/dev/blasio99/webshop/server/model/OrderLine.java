@@ -2,7 +2,12 @@ package dev.blasio99.webshop.server.model;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.Table;
+
+import dev.blasio99.webshop.server.enums.Payment;
+import dev.blasio99.webshop.server.enums.Status;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -13,6 +18,10 @@ public class OrderLine extends BaseModel{
 
 	private ArrayList<Long> orderIdList = new ArrayList<>();
 	private LocalDateTime orderDate;
+	@Enumerated(EnumType.STRING)
+	private Status status;
+	@Enumerated(EnumType.STRING)
+	private Payment payment;
 
 	@Column(unique = true)
 	private String username;
@@ -39,6 +48,22 @@ public class OrderLine extends BaseModel{
 
 	public void setUsername(String username) {
 		this.username = username;
+	}
+
+	public Status getStatus() {
+		return this.status;
+	}
+
+	public void setStatus(Status status) {
+		this.status = status;
+	}
+
+	public Payment getPayment() {
+		return this.payment;
+	}
+
+	public void setPayment(Payment payment) {
+		this.payment = payment;
 	}
 
 }
