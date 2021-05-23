@@ -1,6 +1,5 @@
 package dev.blasio99.webshop.server.service;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,24 +9,14 @@ import dev.blasio99.webshop.server.exception.OutOfStockException;
 import dev.blasio99.webshop.server.exception.ProductNotFoundException;
 import dev.blasio99.webshop.server.exception.ServiceException;
 import dev.blasio99.webshop.server.model.Product;
-import dev.blasio99.webshop.server.model.User;
-import dev.blasio99.webshop.server.observer.Observer;
-import dev.blasio99.webshop.server.observer.Observable;
 import dev.blasio99.webshop.server.enums.Category;
 import dev.blasio99.webshop.server.enums.Size;
 import dev.blasio99.webshop.server.repo.ProductRepository;
-import dev.blasio99.webshop.server.repo.UserRepository;
 
 @Service
-public class ProductService implements Observable{
+public class ProductService {
 	@Autowired
     private ProductRepository productRepository;
-
-	@Autowired
-    private UserRepository userRepository;
-
-	private List<Observer> observers = new ArrayList<>();
-	private Observer emailObserver = new EmailService();
 
     public Product getProductByProductId(Long id) {
         return productRepository.findById(id).get();
@@ -50,12 +39,12 @@ public class ProductService implements Observable{
 	}
 
     public Product addProduct(Product product) {
-		addObserver(emailObserver);
-		List<User> users = userRepository.findAll();
-		for(User user : users)
-			if(user.getSubscriber()){
-				//notifyObservers(product, user.getEmail());
-			}
+		
+		//List<User> users = userRepository.findAll();
+		//for(User user : users)
+		//	if(user.getSubscriber()){
+		//		emailService.update(product, user.getEmail());
+		//	}
 
 		if(productRepository.findByNameAndSize(product.getName(), product.getSize()) != null){
 			Product existingProduct = productRepository.findByNameAndSize(product.getName(), product.getSize());
@@ -104,20 +93,4 @@ public class ProductService implements Observable{
 		return false;
 	}
 
-	@Override
-	public void addObserver(Observer observer) {
-		observers.add(observer);
-	}
-
-	@Override
-	public void removeObserver(Observer observer) {
-		observers.remove(observer);
-	}
-
-	@Override
-	public void notifyObservers(Product product, String email) {
-		for(Observer obs : observers)
-			obs.update(product, email);
-		
-	}
 }

@@ -18,13 +18,12 @@ public class OrderLine extends BaseModel{
 
 	private ArrayList<Long> orderIdList = new ArrayList<>();
 	private LocalDateTime orderDate;
+	@Column(unique = true)
+	private String username;
 	@Enumerated(EnumType.STRING)
 	private Status status;
 	@Enumerated(EnumType.STRING)
 	private Payment payment;
-
-	@Column(unique = true)
-	private String username;
 
 	public ArrayList<Long> getOrderIdList() {
 		return this.orderIdList;
