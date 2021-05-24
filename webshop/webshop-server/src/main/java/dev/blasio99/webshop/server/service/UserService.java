@@ -1,5 +1,6 @@
 package dev.blasio99.webshop.server.service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,6 +9,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import dev.blasio99.webshop.server.behavioral.Iterator;
 import dev.blasio99.webshop.server.enums.Role;
 import dev.blasio99.webshop.server.exception.ServiceException;
 import dev.blasio99.webshop.server.exception.UserNotFoundException;
@@ -15,12 +17,13 @@ import dev.blasio99.webshop.server.model.User;
 import dev.blasio99.webshop.server.repo.UserRepository;
 
 @Service
-public class UserService {
+public class UserService { // implements Sector{
     
     private PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 
     @Autowired
     private UserRepository userRepository;
+
 
     @Autowired 
     private ValidationService validator;
@@ -110,6 +113,45 @@ public class UserService {
 		if (user == null) throw new UserNotFoundException();
 		user.setSubscriber(false);
 		userRepository.save(user);
+	}
+
+	public Iterator getIterator() {
+		return new UserIterator();
+	}
+	
+	List<User> users;
+	
+	private class UserIterator implements Iterator {
+        int index;
+        
+        @Override
+        public boolean hasNext() {
+            if(index < users.size()) {
+                return true;
+            } 
+            return false;
+        }
+
+        @Override
+        public Object next() {
+            if(this.hasNext()) {
+                return users.get(index++);
+            }
+            return null;
+        }
+    }
+
+	public List<String> getUserList(){
+		List<String> userList = new ArrayList<>();
+
+		users = getClients();
+
+		for(Iterator iterator = getIterator(); iterator.hasNext();) {
+            User user = (User)iterator.next();
+            userList.add(user.getUsername());
+        }
+
+		return userList;
 	}
 
 }

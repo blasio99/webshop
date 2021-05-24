@@ -99,8 +99,8 @@ public class UserResource {
 	@PostMapping("/admin/api/register/client")
 	@ResponseStatus(HttpStatus.CREATED)
     public String registerClient(@RequestParam String email) throws UserExistsException {
-		if(userService.getUserByEmail(email) != null) 
-			throw new UserExistsException("User already exists");
+		/*if(userService.getUserByEmail(email) != null) 
+			throw new UserExistsException("User already exists");*/
 
 		SecureToken secureToken= secureTokenService.createSecureToken();
 		secureToken.setEmail(email);
@@ -123,6 +123,11 @@ public class UserResource {
 	public void unsubscribe(){
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 		userService.unsubscribe(authentication.getName());
+	}
+
+	@GetMapping("admin/api/users")
+	public List<String> getUserList(){
+		return userService.getUserList();
 	}
     
 }

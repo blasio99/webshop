@@ -44,7 +44,7 @@ public class EmailService implements Observer{
 		message.setText(mailBodyFormatter(orderLine, products, totalPrice));
 
 		System.out.println(message);
-		//mailSenderImpl.send(message);
+		mailSenderImpl.send(message);
 	}
 
 	private String mailBodyFormatter(OrderLine orderLine, ArrayList<Product> products, Double totalPrice){
