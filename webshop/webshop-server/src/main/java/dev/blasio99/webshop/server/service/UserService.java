@@ -65,15 +65,15 @@ public class UserService {
         return userRepository.findByRole(Role.CLIENT);
     }
 
-    public User getUserByUsername(String username) throws ServiceException {
+    public User getUserByUsername(String username) throws UserNotFoundException {
         User user =  userRepository.findByUsername(username);
-		System.out.println(user);
         if (user == null) throw new UserNotFoundException();
         return user;
     }
 
-	public User getUserByEmail(String email) throws ServiceException {
+	public User getUserByEmail(String email) throws UserNotFoundException {
         User user =  userRepository.findByEmail(email);
+		if (user == null) throw new UserNotFoundException();
         return user;
     }
 

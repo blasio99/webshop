@@ -1,19 +1,20 @@
 package dev.blasio99.webshop.server.model;
 
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Table;
+import javax.persistence.UniqueConstraint;
 import javax.validation.constraints.Min;
 
 @Entity
-@Table
+@Table(uniqueConstraints={
+    @UniqueConstraint(columnNames = {"productId", "username"})
+}) 
 public class Orders extends BaseModel {
 
 	@Min(1)
 	private Integer quantity;
-
-	@Column(unique = true)
 	private Long productId;
+	private String username;
 
 	public Integer getQuantity() {
 		return this.quantity;
@@ -30,5 +31,12 @@ public class Orders extends BaseModel {
 	public void setProductId(Long productId) {
 		this.productId = productId;
 	}
+	
+	public String getUsername() {
+		return this.username;
+	}
 
+	public void setUsername(String username) {
+		this.username = username;
+	}
 }

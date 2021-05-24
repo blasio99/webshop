@@ -14,6 +14,7 @@ public class OrderAssembler implements BaseAssembler<OrderDTO, Orders> {
         order.setId(dto.getId());
 		order.setQuantity(dto.getQuantity());
 		order.setProductId(dto.getProductId());
+		order.setUsername(dto.getUsername());
         return order;
     }
 	
@@ -23,6 +24,7 @@ public class OrderAssembler implements BaseAssembler<OrderDTO, Orders> {
         dto.setId(model.getId());
 		dto.setQuantity(model.getQuantity());
 		dto.setProductId(model.getProductId());
+		dto.setUsername(model.getUsername());
         return dto;
     }
 }

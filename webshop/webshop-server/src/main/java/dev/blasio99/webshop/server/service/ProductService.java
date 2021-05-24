@@ -76,7 +76,9 @@ public class ProductService {
 		Product product = productRepository.findByNameAndSize(name, Size.valueOf(size));
 		if(product == null) throw new ProductNotFoundException();
 		if(product.getQuantity() - quantity < 0) throw new OutOfStockException();
-        product.setQuantity(product.getQuantity() - quantity);
+        
+		System.out.println(product.getQuantity() + " ---- " + quantity);
+		product.setQuantity(product.getQuantity() - quantity);
         
 		productRepository.save(product);
 		

@@ -18,6 +18,10 @@ repositories {
 	mavenCentral()
 }
 
+test {
+    useJUnitPlatform()
+}
+
 dependencies {
 	implementation project(':webshop-common')
 	implementation 'org.springframework.boot:spring-boot-starter-data-jdbc'
@@ -39,9 +43,9 @@ dependencies {
 	testImplementation 'org.springframework.security:spring-security-test'
 	testImplementation 'org.junit.jupiter:junit-jupiter-api:5.3.1'
     testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.3.1'
+	testCompileOnly 'junit:junit:4.12' 
 	compile 'org.springframework.boot:spring-boot-starter-mail:1.5.7.RELEASE'
-}
-
-test {
-	useJUnitPlatform()
+	compile 'org.springframework.boot:spring-boot-starter'
+    compile group: 'org.mockito', name: 'mockito-core', version: '2.13.0'
+    testCompile'org.springframework.boot:spring-boot-starter-test'
 }

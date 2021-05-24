@@ -3,6 +3,7 @@ package dev.blasio99.webshop.common.dto;
 public class OrderDTO extends BaseDTO {
 	private Integer quantity;
 	private Long productId;
+	private String username;
 
 	public Integer getQuantity() {
 		return this.quantity;
@@ -19,5 +20,14 @@ public class OrderDTO extends BaseDTO {
 	public void setProductId(Long productId) {
 		this.productId = productId;
 	}
+	
+	public String getUsername() {
+		return this.username;
+	}
+
+	public void setUsername(String username) {
+		this.username = username;
+	}
+
 
 }

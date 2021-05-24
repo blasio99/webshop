@@ -23,7 +23,7 @@ public class OrderService  {
 	private ProductRepository productRepository;
 	
 	
-	public Orders addOrder (Orders order, Integer newQuantity) throws OrderException{
+	public Orders addOrder (Orders order, Integer newQuantity, String username) throws OrderException{
 
 		Product product = productRepository.findById(order.getProductId()).get();
 
@@ -32,20 +32,20 @@ public class OrderService  {
 		if(product.getQuantity() < order.getQuantity()) 
 			throw new OutOfStockException();
 
-		List<Orders> orders = orderRepository.findAll();
+		List<Orders> orders = orderRepository.findByUsername(username);
 
 		for(Orders o : orders)
-		if(order.getProductId() == o.getProductId()){
-			Orders existingOrder = orderRepository.findById(order.getProductId()).get();
-			
-			if(product.getQuantity() < existingOrder.getQuantity() + newQuantity) {
-				Integer stock = existingOrder.getQuantity() + newQuantity - product.getQuantity(); 
-				throw new OutOfStockException("Out of stock! We have only " + stock + " items.\n");
-			}
-			existingOrder.setQuantity(newQuantity + existingOrder.getQuantity());
+			if(order.getProductId() == o.getProductId()){
+				Orders existingOrder = orderRepository.findByProductId(o.getProductId());
+				
+				if(product.getQuantity() < existingOrder.getQuantity() + newQuantity) {
+					Integer stock = existingOrder.getQuantity() + newQuantity - product.getQuantity(); 
+					throw new OutOfStockException("Out of stock! We have only " + stock + " items.\n");
+				}
+				existingOrder.setQuantity(newQuantity + existingOrder.getQuantity());
 
-			return orderRepository.save(existingOrder);
-		}
+				return orderRepository.save(existingOrder);
+			}
 		return orderRepository.save(order);
 	}
 	

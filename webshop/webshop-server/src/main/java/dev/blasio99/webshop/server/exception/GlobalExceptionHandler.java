@@ -39,5 +39,9 @@ public class GlobalExceptionHandler {
 	@ResponseStatus(value = HttpStatus.CONFLICT, reason = "Incorrect input value!")
     @ExceptionHandler(IncorrectInputValueException.class)
     public void handleIncorrectInputValue() {}
+
+	@ResponseStatus(value = HttpStatus.CONFLICT, reason = "There is no orderLine!")
+    @ExceptionHandler(OrderLineException.class)
+    public void handleOrderLine() {}
     
 }

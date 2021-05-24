@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import java.nio.charset.Charset;
 import java.time.LocalDateTime;
+import java.util.List;
 
 import dev.blasio99.webshop.server.model.SecureToken;
 import dev.blasio99.webshop.server.repo.SecureTokenRepository;
@@ -50,5 +51,9 @@ public class SecureTokenService {
 
 	public int getTokenValidityInDays() {
 		return this.tokenValidityInDays;
+	}
+
+	public List<SecureToken> findAllTokens(){
+		return secureTokenRepository.findAll();
 	}
 }
